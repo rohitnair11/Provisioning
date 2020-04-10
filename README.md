@@ -1,4 +1,19 @@
 # Provisioning
+The main objective is to provision computational resources specifically virtual machines from cloud providers using their API. I have used two cloud providers: Microsoft Azure and DigitalOcean.  
+
+The links to the API:
+Microsoft Azure: https://docs.microsoft.com/en-us/rest/api/azure/   
+DigitalOcean: https://developers.digitalocean.com/documentation/v2/
+
+The code contains the basic functions to perform the following operations automatically:  
+- Create a Virtual Machine (droplet in case of Digital Ocean)
+- Delete the Virtual Machine
+- Display details of the Virtaul Machine
+- Automatically add SSH key to the Virtual Machine for easier access
+- List all the available images
+- List all the regions
+
+## Setup instructions
 First you need to execute the command: ```npm install``` to install all the required packages.  
 You have to set the public part of your SSH key to the environment variable SSH_KEY:  
 ```export SSH_KEY="yoursshkey"```  
