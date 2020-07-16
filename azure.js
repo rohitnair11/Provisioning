@@ -145,7 +145,6 @@ class AzureProvider{
 							 
 		if( !response ) return;
 
-        //console.log('IP Address : ' + response.body.value[0].properties.ipAddress);
         return response.body.value[0].properties.ipAddress;
     }
 }
