@@ -27,9 +27,6 @@ const headers =
 
 class DigitalOceanProvider
 {
-	// Documentation for needle:
-	// https://github.com/tomas/needle
-
 	async listRegions()
 	{
 		let response = await got('https://api.digitalocean.com/v2/regions', { headers: headers, json:true })
@@ -53,8 +50,6 @@ class DigitalOceanProvider
 
 	async listImages( )
 	{
-		// HINT: Add this to the end to get better filter results: ?type=distribution&per_page=100
-
 		let response = await got('https://api.digitalocean.com/v2/images?type=distribution&per_page=100', { headers: headers, json:true })
 							 .catch(err => console.error(`listImages ${err}`));
 							 
@@ -165,7 +160,6 @@ class DigitalOceanProvider
 			console.log(droplet);
 
 			// Print out IP address
-			//console.log('IP Address : ' + droplet.networks.v4[0].ip_address);
 			return droplet.networks.v4[0].ip_address;
 		}
 
@@ -179,7 +173,6 @@ class DigitalOceanProvider
 			return;
 		}
 
-		// HINT, use the DELETE verb.
 		let response = await got.delete(`https://api.digitalocean.com/v2/droplets/${id}`, { headers: headers, json:true })
 		.catch(err => console.error(`listImages ${err}`));
 
@@ -206,22 +199,20 @@ async function provision()
 	let client = new DigitalOceanProvider();
 
 	// #############################################
-	// #1 Print out a list of available regions
-	// Comment out when completed.
+	// Print out a list of available regions
 	// https://developers.digitalocean.com/documentation/v2/#list-all-regions
 	// use 'slug' property
 	//await client.listRegions();
 
 	// #############################################
-	// #2 Extend the client object to have a listImages method
-	// Comment out when completed.
+	// Extend the client object to have a listImages method
 	// https://developers.digitalocean.com/documentation/v2/#images
 	// - Print out a list of available system images, that are AVAILABLE in a specified region.
 	// - use 'slug' property or id if slug is null
 	//await client.listImages();
 
 	// #############################################
-	// #3 Add SSH KEY to the account
+	// Add SSH KEY to the account
 	var ssh_id = await client.addSshKey();
 
 	// #############################################
@@ -239,11 +230,8 @@ async function provision()
 	// BEFORE MOVING TO STEP FOR, REMEMBER TO COMMENT OUT THE `createDroplet()` call!!!
 
 	// #############################################
-	// #5 Extend the client to retrieve information about a specified droplet.
-	// Comment out when done.
+	// Extend the client to retrieve information about a specified droplet.
 	// https://developers.digitalocean.com/documentation/v2/#retrieve-an-existing-droplet-by-id
-	// REMEMBER POST != GET
-	// Most importantly, print out IP address!
 	while(true)
 	{
 		var ip = await client.dropletInfo(dropletId);
@@ -254,23 +242,14 @@ async function provision()
 		}
 		await sleep(5000);
 	}
-	
-	// #############################################
-	// #6 In the command line, ping your server, make sure it is alive!
-	// ping xx.xx.xx.xx
 
 	// #############################################
-	// #7 Extend the client to DESTROY the specified droplet.
+	// Extend the client to DESTROY the specified droplet.
 	// https://developers.digitalocean.com/documentation/v2/#delete-a-droplet
 	// await client.deleteDroplet(dropletId);
-
-	// #############################################
-	// #8 In the command line, ping your server, make sure it is dead!
-	// ping xx.xx.xx.xx
 }
 
 
-// Run workshop code...
 (async () => {
 	await provision();
 })();
